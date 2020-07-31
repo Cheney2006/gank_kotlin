@@ -1,0 +1,111 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+//可选 代码支持通过view id获取对象，不再需要findViewById
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId "com.cheney.gankkotlin"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.support.annotations
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.swipe_refresh
+//    implementation deps.support.v4
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation deps.support.design
+
+    implementation deps.kotlin.stdlib
+
+    implementation deps.constraint_layout
+    implementation deps.support.fragment_runtime_ktx
+    //navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
+
+
+
+    //paging
+    implementation deps.paging.paging_ktx
+    implementation deps.paging.paging_rxjava_ktx
+
+    implementation deps.preference.ktx
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+
+
+    // databinding
+    kapt deps.databinding.complier
+
+    // rxjava
+    implementation deps.rxjava2
+    implementation deps.rx_android
+
+    // viewmodel
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.java8
+    kapt deps.lifecycle.compiler
+
+    // room
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    kapt deps.room.compiler
+
+    // retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.scalars
+    implementation deps.retrofit.rxjava2
+    implementation deps.okhttp_logging_interceptor
+    implementation deps.rxjava2debug
+
+    // glide
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
+
+    //dagger
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
+
+    //banner
+    implementation "com.youth.banner:banner:2.0.12"
+
+}
