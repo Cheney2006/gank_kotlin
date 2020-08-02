@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.base.di.ViewModelFactory
+import com.cheney.gankkotlin.databinding.FragmentCategoryBinding
 import com.cheney.gankkotlin.ui.home.HomeViewModel
+import com.cheney.gankkotlin.util.autoCleared
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -24,13 +27,35 @@ class CategoryFragment : DaggerFragment() {
         viewModelFactory
     }
 
+    private var binding by autoCleared<FragmentCategoryBinding>()
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_category, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
 
-        return root
+        binding.lifecycleOwner = viewLifecycleOwner;
+        binding.viewModel = categoryViewModel
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        categoryViewModel.query()
+
+        setToolbar()
+
+        setPager()
+
+    }
+
+    private fun setPager() {
+
+    }
+
+    private fun setToolbar() {
+        binding.toolbarLayout.toolbar.title = getString(R.string.title_category)
     }
 }

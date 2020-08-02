@@ -16,38 +16,38 @@ class HomeViewModel @Inject constructor(private val gankRepository: GankReposito
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _isLoading = MutableLiveData<Boolean>()
+    private val isLoadingLiveData = MutableLiveData<Boolean>()
 
-    private val _banners = MutableLiveData<List<GankBanner>>()
+    private val bannersLiveData = MutableLiveData<List<GankBanner>>()
 
-    private val _ganks = MutableLiveData<List<Gank>>()
+    private val ganksLiveData = MutableLiveData<List<Gank>>()
 
-    private val _error = MutableLiveData<Throwable>()
+    private val errorLiveData = MutableLiveData<Throwable>()
 
-    val isLoading: MutableLiveData<Boolean> get() = _isLoading;
+    val isLoading: MutableLiveData<Boolean> get() = isLoadingLiveData;
 
-    val error: MutableLiveData<Throwable> get() = _error
+    val error: MutableLiveData<Throwable> get() = errorLiveData
 
-    val banner get() = _banners
+    val banner get() = bannersLiveData
 
-    val ganks get() = _ganks
+    val ganks get() = ganksLiveData
 
 
     @SuppressLint("CheckResult")
     fun query() {
-        _isLoading.postValue(true)
+        isLoadingLiveData.postValue(true)
         Single.zip(
             gankRepository.getBanner(),
             gankRepository.getHot(),
             BiFunction<List<GankBanner>?, List<Gank>?, Any?> { bannerList, gankList ->
-                _banners.postValue(bannerList)
-                _ganks.postValue(gankList)
+                bannersLiveData.postValue(bannerList)
+                ganksLiveData.postValue(gankList)
             }).doOnSubscribe { disposable: Disposable -> compositeDisposable.add(disposable) }
             .subscribe({
-                _isLoading.postValue(false)
+                isLoadingLiveData.postValue(false)
             }, {
-                _isLoading.postValue(false)
-                _error.postValue(it)
+                isLoadingLiveData.postValue(false)
+                errorLiveData.postValue(it)
             })
 //        gankRepository.getBanner()
 //            .doOnSubscribe { disposable: Disposable -> compositeDisposable.add(disposable) }

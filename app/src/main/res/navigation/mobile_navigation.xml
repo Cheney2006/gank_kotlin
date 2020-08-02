@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_category"
         android:name="com.cheney.gankkotlin.ui.category.CategoryFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_category"
         tools:layout="@layout/fragment_category" />
 
     <fragment

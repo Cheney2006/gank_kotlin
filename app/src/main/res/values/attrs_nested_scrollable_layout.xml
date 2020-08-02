@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="NestedScrollableLayout">
+        <attr name="android:orientation" />
+    </declare-styleable>
+</resources>

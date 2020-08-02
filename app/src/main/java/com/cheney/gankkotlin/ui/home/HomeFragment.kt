@@ -34,9 +34,9 @@ class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
         viewModelFactory
     }
 
-    var binding by autoCleared<FragmentHomeBinding>()
+    private var binding by autoCleared<FragmentHomeBinding>()
 
-    var homeAdapter by autoCleared<HomeAdapter>()
+    private var homeAdapter by autoCleared<HomeAdapter>()
 
 //    private lateinit var bannerAdapter: GankBannerAdapter;
 
@@ -60,7 +60,7 @@ class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeViewModel.query()
 
-        setToolBar()
+        setToolbar()
 
         setBanner()
 
@@ -88,7 +88,7 @@ class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
 
     }
 
-    private fun setToolBar() {
+    private fun setToolbar() {
         binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset -> //当滑动到顶部的时候开启
             binding.swipeRefresh.isEnabled = verticalOffset >= 0
 

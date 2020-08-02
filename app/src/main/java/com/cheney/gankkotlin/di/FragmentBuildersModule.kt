@@ -1,5 +1,6 @@
 package com.cheney.gankkotlin.di
 
+import com.cheney.gankkotlin.ui.category.ArticleFragment
 import com.cheney.gankkotlin.ui.category.CategoryFragment
 import com.cheney.gankkotlin.ui.home.HomeFragment
 import com.cheney.gankkotlin.ui.notifications.NotificationsFragment
@@ -14,7 +15,10 @@ abstract class FragmentBuildersModule {
     abstract fun contributesHomeFragment(): HomeFragment
 
     @ContributesAndroidInjector
-    abstract fun contributesDashboardFragment(): CategoryFragment
+    abstract fun contributesCategoryFragment(): CategoryFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesArticleFragment(): ArticleFragment
 
     @ContributesAndroidInjector
     abstract fun contributesNotificationsFragment(): NotificationsFragment

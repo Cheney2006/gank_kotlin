@@ -41,4 +41,18 @@ interface GankService {
     @GET("categories/{category_type}")
     fun getCategoryTypes(@Path("category_type") category: String): Single<Resource<List<CategoryType>>>
 
+
+    /**
+     * 分类数据 API
+     *
+     * @param category 可接受参数 All(所有分类) | Article | GanHuo | Girl
+     * @param type     可接受参数 All(全部类型) | Android | iOS | Flutter | Girl ...，即分类API返回的类型数据
+     * @param count    [10, 50]
+     * @param page     >=1
+     */
+    @GET("data/category/{category}/type/{type}/page/{page}/count/{count}")
+    fun getByCategoryType(
+        @Path("category") category: String,
+        @Path("type") type: String, @Path("count") count: Int, @Path("page") page: Int
+    ): Single<Resource<List<Gank>>>
 }

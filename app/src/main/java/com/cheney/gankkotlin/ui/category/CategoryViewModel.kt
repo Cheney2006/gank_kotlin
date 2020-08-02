@@ -14,14 +14,19 @@ class CategoryViewModel @Inject constructor(private val gankRepository: GankRepo
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _categorys = MutableLiveData<List<CategoryType>>()
+    private val _categories = MutableLiveData<List<CategoryType>>()
     private val _error = MutableLiveData<Throwable>()
+
+    val categories get() = _categories
+
+    val error get() = _error
 
 
     @SuppressLint("CheckResult")
     fun query() {
         gankRepository.getCategoryTypes(CATEGORY_ARTICLE)
-            .subscribe({ _categorys.postValue(it) },
+            .subscribe(
+                { _categories.postValue(it) },
                 { throwable: Throwable ->
                     _error.postValue(throwable)
                 })

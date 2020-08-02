@@ -44,8 +44,6 @@ dependencies {
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
     implementation deps.support.swipe_refresh
-//    implementation deps.support.v4
-//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation deps.support.design
 
     implementation deps.kotlin.stdlib
@@ -63,11 +61,6 @@ dependencies {
     implementation deps.paging.paging_ktx
     implementation deps.paging.paging_rxjava_ktx
 
-    implementation deps.preference.ktx
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
-
-
     // databinding
     kapt deps.databinding.complier
 
@@ -79,6 +72,7 @@ dependencies {
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.java8
+//    implementation deps.lifecycle.viewmodel_ktx
     kapt deps.lifecycle.compiler
 
     // room
