@@ -18,13 +18,17 @@ class ArticleDataSource(
 
     private var pageNo: Int = 1;
 
-    private val isLoadingLiveData = MutableLiveData<Boolean>()
-    private val errorLiveData = MutableLiveData<Throwable>()
-    private val canLoadMoreLiveData = MutableLiveData<Boolean>()
+    private val _isLoadingLiveData = MutableLiveData<Boolean>()
+    val isLoadingLiveData get() = _isLoadingLiveData
+
+    private val _errorLiveData = MutableLiveData<Throwable>()
+    val errorLiveData get() = _errorLiveData
+
+    private val _canLoadMoreLiveData = MutableLiveData<Boolean>()
 
     @SuppressLint("CheckResult")
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Gank>) {
-        isLoadingLiveData.postValue(true)
+        _isLoadingLiveData.postValue(true)
         gankRepository.getByCategoryType(
             CATEGORY_ARTICLE,
             categoryType.type,
@@ -32,8 +36,8 @@ class ArticleDataSource(
             pageNo
         ).doOnSubscribe { disposable -> compositeDisposable.add(disposable) }
             .subscribe({ onLoadInitialSuccess(callback, it) }, { throwable: Throwable ->
-                isLoadingLiveData.postValue(false)
-                errorLiveData.postValue(throwable)
+                _isLoadingLiveData.postValue(false)
+                _errorLiveData.postValue(throwable)
             })
     }
 
@@ -41,19 +45,19 @@ class ArticleDataSource(
         callback: LoadInitialCallback<Gank>,
         resource: Resource<List<Gank>>
     ) {
-        isLoadingLiveData.postValue(false)
-        if (resource.pager_count!! > resource.page!!) {
+        _isLoadingLiveData.postValue(false)
+        if (resource.page_count!! > resource.page!!) {
             pageNo++
-            canLoadMoreLiveData.postValue(true)
+            _canLoadMoreLiveData.postValue(true)
         } else {
-            canLoadMoreLiveData.postValue(false)
+            _canLoadMoreLiveData.postValue(false)
         }
         resource.data?.let { callback.onResult(it) }
     }
 
     @SuppressLint("CheckResult")
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Gank>) {
-        if (!canLoadMoreLiveData.value!!) {
+        if (!_canLoadMoreLiveData.value!!) {
             return
         }
         gankRepository.getByCategoryType(
@@ -62,15 +66,15 @@ class ArticleDataSource(
         ).doOnSubscribe { disposable ->
             compositeDisposable.add(disposable)
         }.subscribe({
-            if (it.pager_count!! >= it.page!!) {
+            if (it.page_count!! >= it.page!!) {
                 pageNo++
-                canLoadMoreLiveData.postValue(true)
+                _canLoadMoreLiveData.postValue(true)
             } else {
-                canLoadMoreLiveData.postValue(false)
+                _canLoadMoreLiveData.postValue(false)
             }
-            it.data?.let { it1 -> callback.onResult(it1) }
+            it.data?.let { data -> callback.onResult(data) }
         }, {
-            errorLiveData.postValue(it)
+            _errorLiveData.postValue(it)
         })
     }
 

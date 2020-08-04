@@ -37,9 +37,9 @@ class GankRepository @Inject constructor(private val gankService: GankService) {
      */
     fun getHot(): Single<List<Gank>?> {
         return gankService.getHot(HOT_VIEWS, CATEGORY_ARTICLE, 20)
-            .map { result: Resource<List<Gank>> ->
-                if (result.isOk) {
-                    return@map result.data
+            .map {
+                if (it.isOk) {
+                    it.data
                 } else {
                     throw IOException("Get Error From Server")
                 }
@@ -54,7 +54,9 @@ class GankRepository @Inject constructor(private val gankService: GankService) {
      */
     fun getCategoryTypes(category: String): Single<List<CategoryType>?> {
         return gankService.getCategoryTypes(category)
-            .map { if (it.isOk) it.data else throw IOException("Get Error From Server") }
+            .map {
+                if (it.isOk) it.data else throw IOException("Get Error From Server")
+            }
             .subscribeOn(Schedulers.io())
     }
 
@@ -74,7 +76,9 @@ class GankRepository @Inject constructor(private val gankService: GankService) {
         page: Int
     ): Single<Resource<List<Gank>>> {
         return gankService.getByCategoryType(category, type, count, page)
-            .map { if (it.isOk) it else throw IOException("Get Error From Server") }
+            .map {
+                if (it.isOk) it else throw IOException("Get Error From Server")
+            }
             .subscribeOn(Schedulers.io())
     }
 }

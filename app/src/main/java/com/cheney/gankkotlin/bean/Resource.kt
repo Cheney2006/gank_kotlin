@@ -11,7 +11,7 @@ package com.cheney.gankkotlin.bean
 
 data class Resource<out T>(
     val page: Int?,
-    val pager_count: Int?,
+    val page_count: Int?,
     val status: Int,
     val data: T?,
     val total_counts: Int?

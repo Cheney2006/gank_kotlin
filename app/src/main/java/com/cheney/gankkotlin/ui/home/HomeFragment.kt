@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheney.gankkotlin.R
-import com.cheney.gankkotlin.bean.Gank
 import com.cheney.gankkotlin.bean.GankBanner
 import com.cheney.gankkotlin.databinding.FragmentHomeBinding
 import com.cheney.gankkotlin.util.autoCleared
@@ -21,8 +20,7 @@ import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlin.math.abs
 
-class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
-    HomeAdapter.OnItemClickListener {
+class HomeFragment : DaggerFragment() {
 
     @Inject
     lateinit var packageName: String
@@ -69,7 +67,13 @@ class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
 
     private fun setAdapter() {
 
-        val adapter = HomeAdapter(GankDiffUtilItemCallback(), this)
+        val adapter = HomeAdapter(GankDiffUtilItemCallback()) {
+            TODO("点击跳转")
+        }
+
+//        val adapter = HomeAdapter(GankDiffUtilItemCallback(), fun (gank: Gank) {
+//            println(gank._id)
+//        })
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(
@@ -107,6 +111,12 @@ class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
 //            binding.banner.addBannerLifecycleObserver(viewLifecycleOwner).setAdapter()
 //        } })
 
+//        homeViewModel.banner.observe(viewLifecycleOwner, object : Observer<List<GankBanner>> {
+//            override fun onChanged(t: List<GankBanner>?) {
+//
+//            }
+//        })
+
         homeViewModel.banner.observe(viewLifecycleOwner, Observer { initBanner(it) })
     }
 
@@ -115,21 +125,15 @@ class HomeFragment : DaggerFragment(), GankBannerAdapter.OnItemClickListener,
 //            override fun onItemClick(gankBanner: GankBanner) {
 //            }
 //        })
-        val adapter = GankBannerAdapter(gankBanners, this)
+        val adapter = GankBannerAdapter(gankBanners) {
+            TODO("点击跳转")
+        }
 
         binding.banner.addBannerLifecycleObserver(viewLifecycleOwner).adapter = adapter
         binding.banner.indicator = CircleIndicator(requireContext())
         binding.banner.setIndicatorGravity(IndicatorConfig.Direction.RIGHT)
         binding.banner.start()
 
-    }
-
-    override fun onItemClick(gankBanner: GankBanner) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onItemClick(gank: Gank) {
-        TODO("Not yet implemented")
     }
 
 }

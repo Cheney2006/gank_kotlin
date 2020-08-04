@@ -12,7 +12,7 @@ import com.cheney.gankkotlin.databinding.ItemGankBinding
 
 class HomeAdapter(
     diffCallback: DiffUtil.ItemCallback<Gank>,
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickListener: (Gank)->Unit
 ) :
     ListAdapter<Gank, HomeAdapter.GankViewHolder>(diffCallback) {
 
@@ -29,14 +29,17 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: GankViewHolder, position: Int) {
         holder.binding.gank = getItem(position)
-        holder.binding.itemClick = onItemClickListener
+        holder.binding.root.setOnClickListener {
+//            val onItemClickListener=::onItemClickListener
+//            onItemClickListener(getItem(position))
+//            onItemClickListener(getItem(position))
+            onItemClickListener.invoke(getItem(position))
+        }
         holder.binding.executePendingBindings()
     }
 
 
     class GankViewHolder(val binding: ItemGankBinding) : RecyclerView.ViewHolder(binding.root)
 
-    interface OnItemClickListener {
-        fun onItemClick(gank: Gank)
-    }
+
 }

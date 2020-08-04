@@ -2,22 +2,30 @@ package com.cheney.gankkotlin.ui.category
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import androidx.paging.DataSource.Factory
 import com.cheney.gankkotlin.bean.CategoryType
 import com.cheney.gankkotlin.bean.Gank
 import com.cheney.gankkotlin.repository.GankRepository
 import io.reactivex.disposables.CompositeDisposable
 
 
-class ArticleDataSourceFactory (
+class ArticleDataSourceFactory(
     private val gankRepository: GankRepository,
-    private val categoryType: CategoryType
-) : Factory<Int, Gank>() {
+    private val categoryType: CategoryType,
+    private val compositeDisposable: CompositeDisposable
+) : DataSource.Factory<Int, Gank>() {
 
-    private val compositeDisposable = CompositeDisposable()
-    private val dataSourceLiveData = MutableLiveData<ArticleDataSource>()
+    private val _dataSourceLiveData = MutableLiveData<ArticleDataSource>()
+
+    val dataSource get() = _dataSourceLiveData
 
     override fun create(): DataSource<Int, Gank> {
-        TODO("Not yet implemented")
+        val dataSource = ArticleDataSource(compositeDisposable, gankRepository, categoryType)
+        _dataSourceLiveData.postValue(dataSource)
+        return dataSource
     }
+
+    fun refresh() {
+        dataSource.value?.invalidate()
+    }
+
 }

@@ -14,7 +14,7 @@ class CategoryPagerAdapter(fragment: Fragment, private val categories: List<Cate
 
 
     override fun createFragment(position: Int): Fragment {
-        TODO("Not yet implemented")
+        return ArticleFragment.newInstance(categories[position])
     }
 
 

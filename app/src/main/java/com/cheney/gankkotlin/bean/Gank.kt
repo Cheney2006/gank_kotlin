@@ -29,4 +29,8 @@ data class Gank(
     fun getImageUrl(index: Int): String {
         return images?.get(index)
     }
+
+    fun publishedAt(): CharSequence {
+        return publishedAt?.subSequence(0, 10)
+    }
 }

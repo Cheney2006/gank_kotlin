@@ -7,9 +7,6 @@
             name="gank"
             type="com.cheney.gankkotlin.bean.Gank" />
 
-        <variable
-            name="itemClick"
-            type="com.cheney.gankkotlin.ui.home.HomeAdapter.OnItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +14,6 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:onClick="@{()->itemClick.onItemClick(gank)}"
         android:padding="16dp">
 
         <ImageView
@@ -98,7 +94,7 @@
             android:id="@+id/publishedAt_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{gank.publishedAt}"
+            android:text="@{gank.publishedAt()}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/author_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>

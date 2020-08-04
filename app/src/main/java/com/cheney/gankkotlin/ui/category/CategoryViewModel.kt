@@ -24,12 +24,13 @@ class CategoryViewModel @Inject constructor(private val gankRepository: GankRepo
 
     @SuppressLint("CheckResult")
     fun query() {
-        gankRepository.getCategoryTypes(CATEGORY_ARTICLE)
-            .subscribe(
-                { _categories.postValue(it) },
-                { throwable: Throwable ->
-                    _error.postValue(throwable)
-                })
+        gankRepository.getCategoryTypes(CATEGORY_ARTICLE).doOnSubscribe {
+            compositeDisposable.add(it)
+        }.subscribe({
+            _categories.postValue(it)
+        }, { throwable: Throwable ->
+            _error.postValue(throwable)
+        })
     }
 
     override fun onCleared() {

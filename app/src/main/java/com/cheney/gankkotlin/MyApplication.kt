@@ -1,9 +1,9 @@
 package com.cheney.gankkotlin
 
-import android.app.Application
 import com.cheney.gankkotlin.base.di.DaggerAppComponent
 import com.cheney.gankkotlin.base.di.NetworkModule
 import com.cheney.gankkotlin.constants.BASE_URL
+import com.cheney.gankkotlin.util.LifecycleCallbacks
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
@@ -11,7 +11,7 @@ class MyApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-//        AppInjector.init(this)
+        LifecycleCallbacks.register(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

@@ -1,33 +1,83 @@
 package com.cheney.gankkotlin.ui.category
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheney.gankkotlin.R
+import com.cheney.gankkotlin.bean.CategoryType
+import com.cheney.gankkotlin.databinding.FragmentAritcleBinding
+import com.cheney.gankkotlin.ui.home.GankDiffUtilItemCallback
+import com.cheney.gankkotlin.util.autoCleared
 import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class ArticleFragment : DaggerFragment() {
+class ArticleFragment(private val categoryType: CategoryType) : DaggerFragment() {
 
     companion object {
-        fun newInstance() = ArticleFragment()
+        fun newInstance(categoryType: CategoryType) = ArticleFragment(categoryType)
+
+//        fun create(categoryType: CategoryType)=ArticleFragment().apply {
+//            arguments=Bundle().apply { putString() }
+//        }
     }
 
-    private lateinit var viewModel: ArticleViewModel
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<ArticleViewModel> { factory }
+
+    private var binding by autoCleared<FragmentAritcleBinding>()
+
+    private var articleAdapter by autoCleared<ArticleAdapter>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_aritcle, container, false)
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_aritcle, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
-        // TODO: Use the ViewModel
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.queryByCategoryType(categoryType)
+
+        setAdapter()
+
     }
+
+    private fun setAdapter() {
+        val adapter = ArticleAdapter(GankDiffUtilItemCallback()) {
+            TODO("点击跳转")
+        }
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
+        articleAdapter = adapter
+
+        viewModel.pagedLiveData.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
+
+
+    }
+
 
 }

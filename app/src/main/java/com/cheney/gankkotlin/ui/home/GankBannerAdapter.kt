@@ -11,7 +11,7 @@ import com.youth.banner.adapter.BannerAdapter
 
 class GankBannerAdapter(
     datas: List<GankBanner>,
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickListener: (GankBanner) -> Unit
 ) :
     BannerAdapter<GankBanner, GankBannerAdapter.BannerViewHolder>(datas) {
 
@@ -33,12 +33,12 @@ class GankBannerAdapter(
         size: Int
     ) {
         holder.binding.gankBanner = data
-        holder.binding.itemClick = onItemClickListener
+        holder.binding.root.setOnClickListener {
+            onItemClickListener.invoke(data)
+        }
+        holder.binding.executePendingBindings()
     }
 
     class BannerViewHolder(val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root)
 
-    interface OnItemClickListener {
-        fun onItemClick(gankBanner: GankBanner)
-    }
 }

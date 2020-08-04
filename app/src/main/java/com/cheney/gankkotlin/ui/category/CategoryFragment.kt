@@ -12,10 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.base.di.ViewModelFactory
+import com.cheney.gankkotlin.bean.CategoryType
 import com.cheney.gankkotlin.databinding.FragmentCategoryBinding
 import com.cheney.gankkotlin.ui.home.HomeViewModel
 import com.cheney.gankkotlin.util.autoCleared
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
+import java.sql.Types
 import javax.inject.Inject
 
 class CategoryFragment : DaggerFragment() {
@@ -52,10 +57,29 @@ class CategoryFragment : DaggerFragment() {
     }
 
     private fun setPager() {
+        categoryViewModel.categories.observe(
+            viewLifecycleOwner,
+            Observer(this::initPager)
+        )
+    }
 
+    private fun initPager(categoryTypes: List<CategoryType>) {
+        binding.pager.adapter = CategoryPagerAdapter(this, categoryTypes)
+//           TabLayoutMediator(binding.tabLayout,binding.pager, object : TabLayoutMediator.TabConfigurationStrategy{
+//               override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+//                   tab.text=it[position].title
+//               }
+//           }).attach()
+        TabLayoutMediator(
+            binding.tabLayout,
+            binding.pager,
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                tab.text = categoryTypes[position].title
+            }).attach()
     }
 
     private fun setToolbar() {
         binding.toolbarLayout.toolbar.title = getString(R.string.title_category)
+        binding.toolbarLayout.toolbar.elevation = 0F
     }
 }
