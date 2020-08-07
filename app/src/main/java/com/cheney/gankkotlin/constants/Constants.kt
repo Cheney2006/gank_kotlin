@@ -9,3 +9,7 @@ const val HOT_VIEWS = "views"
  */
 const val CATEGORY_ARTICLE = "Article"
 
+/**
+ * 妹纸
+ */
+const val CATEGORY_Girl = "Girl"
