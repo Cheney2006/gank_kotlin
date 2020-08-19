@@ -66,7 +66,7 @@ class ArticleDataSource(
         ).doOnSubscribe { disposable ->
             compositeDisposable.add(disposable)
         }.subscribe({
-            if (it.page_count!! >= it.page!!) {
+            if (it.page_count!! > it.page!!) {
                 pageNo++
                 _canLoadMore.postValue(true)
             } else {

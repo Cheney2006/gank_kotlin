@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.databinding.FragmentGirlBinding
+import com.cheney.gankkotlin.ui.home.GankDiffUtilItemCallback
 import com.cheney.gankkotlin.util.autoCleared
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -25,8 +27,7 @@ class GirlFragment : DaggerFragment() {
 
     private var binding by autoCleared<FragmentGirlBinding>()
 
-
-
+    private var adapter by autoCleared<GirlAdapter>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +36,19 @@ class GirlFragment : DaggerFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_girl, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel=viewModel
-
+        binding.viewModel = viewModel
+        viewModel.query()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding.toolbarLayout.toolbar.title = getString(R.string.title_girl)
+
+        adapter = GirlAdapter(GankDiffUtilItemCallback())
+        binding.recyclerView.adapter = adapter
+
+        viewModel.pagedList.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }

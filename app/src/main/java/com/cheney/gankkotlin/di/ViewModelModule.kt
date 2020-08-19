@@ -6,6 +6,7 @@ import com.cheney.gankkotlin.base.di.ViewModelFactory
 import com.cheney.gankkotlin.base.di.ViewModelKey
 import com.cheney.gankkotlin.ui.category.ArticleViewModel
 import com.cheney.gankkotlin.ui.category.CategoryViewModel
+import com.cheney.gankkotlin.ui.girl.GirlViewModel
 import com.cheney.gankkotlin.ui.home.HomeViewModel
 import dagger.Binds
 import dagger.Module
@@ -29,5 +30,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ArticleViewModel::class)
     abstract fun bindArticleViewModel(articleViewModel: ArticleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GirlViewModel::class)
+    abstract fun bindGirlViewModel(girlViewModel: GirlViewModel): ViewModel
 
 }

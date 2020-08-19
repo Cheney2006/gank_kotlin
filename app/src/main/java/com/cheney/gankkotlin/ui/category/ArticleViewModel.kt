@@ -54,7 +54,7 @@ class ArticleViewModel @Inject constructor(private val gankRepository: GankRepos
 
 //        _isLoadingLiveData = Transformations.switchMap(factor.dataSource,{input:ArticleDataSource->input.isLoadingLiveData})
         _isLoadingLiveData = Transformations.switchMap(factor.dataSource) {
-            it.isLoadingLiveData
+            it.isLoading
         }
 
         _errorLiveData =

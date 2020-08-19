@@ -76,9 +76,9 @@ dependencies {
     kapt deps.lifecycle.compiler
 
     // room
-    implementation deps.room.runtime
-    implementation deps.room.rxjava2
-    kapt deps.room.compiler
+//    implementation deps.room.runtime
+//    implementation deps.room.rxjava2
+//    kapt deps.room.compiler
 
     // retrofit
     implementation deps.retrofit.runtime

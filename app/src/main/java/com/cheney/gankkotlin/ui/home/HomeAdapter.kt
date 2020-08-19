@@ -32,8 +32,8 @@ class HomeAdapter(
         holder.binding.root.setOnClickListener {
 //            val onItemClickListener=::onItemClickListener
 //            onItemClickListener(getItem(position))
-//            onItemClickListener(getItem(position))
-            onItemClickListener.invoke(getItem(position))
+            onItemClickListener(getItem(position))
+//            onItemClickListener.invoke(getItem(position))
         }
         holder.binding.executePendingBindings()
     }
