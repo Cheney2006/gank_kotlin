@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_girl"
         android:title="@string/title_girl" />
 
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/ic_person_black_24"
+        android:title="@string/title_my" />
+
 </menu>

@@ -3,4 +3,14 @@
     <string name="title_home">首页</string>
     <string name="title_category">分类</string>
     <string name="title_girl">妹纸</string>
+
+    <string name="title_my">我的</string>
+    <string name="about">关于</string>
+    <string name="issue_pr">提Issue/PR</string>
+    <string name="star">点个Star</string>
+    <string name="clean">清理缓存</string>
+    <string name="clean_favorites">清理收藏</string>
+    <string name="github_login">GitHub帐号登录</string>
+
+    <string name="versionName">当前版本V%1$s</string>
 </resources>

@@ -22,4 +22,9 @@
         android:name="com.cheney.gankkotlin.ui.girl.GirlFragment"
         android:label="@string/title_girl"
         tools:layout="@layout/fragment_girl" />
+    <fragment
+        android:id="@+id/navigation_my"
+        android:name="com.cheney.gankkotlin.ui.my.MyFragment"
+        android:label="@string/title_my"
+        tools:layout="@layout/fragment_my" />
 </navigation>

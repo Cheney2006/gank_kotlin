@@ -11,10 +11,8 @@ import com.cheney.gankkotlin.bean.Gank
 import com.cheney.gankkotlin.databinding.ItemGirlBinding
 
 class GirlAdapter(diffCallback: DiffUtil.ItemCallback<Gank>) :
-    PagedListAdapter<Gank, GirlAdapter.GirlViewHolder>(diffCallback) {
+    PagedListAdapter<Gank, GirlViewHolder>(diffCallback) {
 
-    class GirlViewHolder(val binding: ItemGirlBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GirlViewHolder {
         return GirlViewHolder(
@@ -32,3 +30,6 @@ class GirlAdapter(diffCallback: DiffUtil.ItemCallback<Gank>) :
         holder.binding.executePendingBindings()
     }
 }
+
+class GirlViewHolder(val binding: ItemGirlBinding) :
+    RecyclerView.ViewHolder(binding.root)

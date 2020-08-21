@@ -7,7 +7,7 @@ data class Gank(
     val content: String,
     val createdAt: String,
     val desc: String,
-    val images: List<String>,
+    val images: List<String>?,
     val index: Int,
     val isOriginal: Boolean,
     val license: String,
@@ -16,7 +16,7 @@ data class Gank(
     val likes: List<String>,
     val markdown: String,
     val originalAuthor: String,
-    val publishedAt: String,
+    val publishedAt: String?,
     val stars: Int,
     val status: Int,
     val tags: List<String>,
@@ -26,11 +26,11 @@ data class Gank(
     val url: String,
     val views: Int
 ) {
-    fun getImageUrl(index: Int): String {
+    fun getImageUrl(index: Int): String? {
         return images?.get(index)
     }
 
-    fun publishedAt(): CharSequence {
-        return publishedAt?.subSequence(0, 10)
+    fun publishedAt(): String? {
+        return publishedAt?.substring(0, 10)
     }
 }

@@ -60,6 +60,7 @@ dependencies {
     //paging
     implementation deps.paging.paging_ktx
     implementation deps.paging.paging_rxjava_ktx
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // databinding
     kapt deps.databinding.complier

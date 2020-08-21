@@ -13,5 +13,10 @@
         <item name="android:textColor">#ffffff</item><!--toolbar标题字体颜色-->
     </style>
 
+    <!-- 长型按钮文本样式 -->
+    <style name="MenuTitleText">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/color_black_title</item>
+    </style>
 
 </resources>
