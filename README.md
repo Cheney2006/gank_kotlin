@@ -7,7 +7,7 @@ uploadArchives {
 //        if (mavenCommitId != null && !"".equals(mavenCommitId)) {
 //            String lastCommitId = mavenCommitId.toString().substring(0, 6)
 //        snapshotRepository(url: "http://nexus.os.adc.com/nexus/content/repositories/snapshots/") {
-//            authentication(userName: "admin", password: "admin123")
+//            authentication(userName: "cc", password: "cc")
 //            android.libraryVariants.all { variant ->
 //                def isFlavor = !variant.flavorName.isEmpty()
 //                def buildType = "${variant.buildType.name}"
@@ -59,7 +59,7 @@ uploadArchives {
 
 
         snapshotRepository(url: "http://nexus.os.adc.com/nexus/content/repositories/snapshots/") {
-            authentication(userName: "admin", password: "admin123")
+            authentication(userName: "cc", password: "cc")
             android.libraryVariants.all { variant ->
                 def isFlavor = !variant.flavorName.isEmpty()
                 def buildType = "${variant.buildType.name}"
