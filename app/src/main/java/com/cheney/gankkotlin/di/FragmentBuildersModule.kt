@@ -4,6 +4,9 @@ import com.cheney.gankkotlin.ui.category.ArticleFragment
 import com.cheney.gankkotlin.ui.category.CategoryFragment
 import com.cheney.gankkotlin.ui.home.HomeFragment
 import com.cheney.gankkotlin.ui.girl.GirlFragment
+import com.cheney.gankkotlin.ui.login.LoginFragment
+import com.cheney.gankkotlin.ui.my.MyFragment
+import com.cheney.gankkotlin.ui.web.WebViewFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -22,5 +25,14 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributesNotificationsFragment(): GirlFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesMyFragment(): MyFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeWebViewFragment():WebViewFragment
 
 }

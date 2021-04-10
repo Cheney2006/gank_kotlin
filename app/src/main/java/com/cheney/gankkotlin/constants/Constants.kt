@@ -13,3 +13,14 @@ const val CATEGORY_ARTICLE = "Article"
  * 妹纸
  */
 const val CATEGORY_Girl = "Girl"
+
+
+/**
+ * 版本
+ */
+const val VERSION_NAME="versionName"
+
+/**
+ * 包名
+ */
+const val PACKAGE_NAME="packageName"

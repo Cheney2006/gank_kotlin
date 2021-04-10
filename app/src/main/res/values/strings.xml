@@ -13,4 +13,19 @@
     <string name="github_login">GitHub帐号登录</string>
 
     <string name="versionName">当前版本V%1$s</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="title_login">登录</string>
+    <string name="dialog_login">正在登录</string>
+    <string name="loading">正在加载</string>
+    <string name="txt_refresh_view">点击刷新</string>
+    <string name="dialog_left_txt">取消</string>
+    <string name="dialog_title">温馨提示</string>
+    <string name="dialog_message_username">请输入用户名</string>
+    <string name="dialog_message_password">请输入密码</string>
+    <string name="dialog_right_txt">确定</string>
 </resources>

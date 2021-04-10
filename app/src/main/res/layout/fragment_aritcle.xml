@@ -2,7 +2,7 @@
 <layout>
 
     <data>
-
+        <import type="android.text.TextUtils" />
         <variable
             name="viewModel"
             type="com.cheney.gankkotlin.ui.category.ArticleViewModel" />

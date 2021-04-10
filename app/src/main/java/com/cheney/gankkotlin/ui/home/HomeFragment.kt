@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.bean.GankBanner
+import com.cheney.gankkotlin.constants.PACKAGE_NAME
 import com.cheney.gankkotlin.databinding.FragmentHomeBinding
 import com.cheney.gankkotlin.util.autoCleared
 import com.google.android.material.appbar.AppBarLayout
@@ -18,11 +21,13 @@ import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+import javax.inject.Named
 import kotlin.math.abs
 
 class HomeFragment : DaggerFragment() {
 
     @Inject
+    @Named(PACKAGE_NAME)
     lateinit var packageName: String
 
     @Inject
@@ -68,7 +73,7 @@ class HomeFragment : DaggerFragment() {
     private fun setAdapter() {
 
         val adapter = HomeAdapter(GankDiffUtilItemCallback()) {
-            TODO("点击跳转")
+            findNavController().navigate(HomeFragmentDirections.actionGlobalWebViewFragment(it.title,it.url))
         }
 
 //        val adapter = HomeAdapter(GankDiffUtilItemCallback(), fun (gank: Gank) {

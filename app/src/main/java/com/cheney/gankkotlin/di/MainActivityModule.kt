@@ -1,6 +1,6 @@
 package com.cheney.gankkotlin.di
 
-import com.cheney.gankkotlin.MainActivity
+import com.cheney.gankkotlin.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

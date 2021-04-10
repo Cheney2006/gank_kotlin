@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.bean.CategoryType
@@ -60,7 +61,7 @@ class ArticleFragment(private val categoryType: CategoryType) : DaggerFragment()
 
     private fun setAdapter() {
         val adapter = ArticleAdapter(GankDiffUtilItemCallback()) {
-            TODO("点击跳转")
+            findNavController().navigate(CategoryFragmentDirections.actionGlobalWebViewFragment(it.title,it.url))
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(

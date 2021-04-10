@@ -41,15 +41,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_item"
-            android:onClick="@{(view)->eventHandler.login(view)}"
+            android:onClick="@{(view)->eventHandler.gotoLogin(view)}"
             android:padding="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
 
             <ImageView
                 android:id="@+id/avatar_iv"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:onClick="@{(view)->eventHandler.avatarClick(view)}"
                 android:src="@drawable/ic_person_black_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

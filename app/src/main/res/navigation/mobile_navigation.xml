@@ -5,6 +5,10 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <action
+        android:id="@+id/action_global_webViewFragment"
+        app:destination="@id/webViewFragment" />
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.cheney.gankkotlin.ui.home.HomeFragment"
@@ -26,5 +30,25 @@
         android:id="@+id/navigation_my"
         android:name="com.cheney.gankkotlin.ui.my.MyFragment"
         android:label="@string/title_my"
-        tools:layout="@layout/fragment_my" />
+        tools:layout="@layout/fragment_my">
+
+        <action
+            android:id="@+id/action_navigation_my_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.cheney.gankkotlin.ui.login.LoginFragment"
+        android:label="@string/title_login" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.cheney.gankkotlin.ui.web.WebViewFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
 </navigation>
