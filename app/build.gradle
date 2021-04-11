@@ -8,13 +8,14 @@ apply plugin: 'kotlin-allopen'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion build_versions.build_tools
+    compileSdkVersion BuildVersions.compileSdk
+    buildToolsVersion BuildVersions.buildTools
+
 
     defaultConfig {
         applicationId "com.cheney.gankkotlin"
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion BuildVersions.minSdk
+        targetSdkVersion BuildVersions.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -42,41 +43,42 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation deps.support.annotations
-    implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-    implementation deps.support.swipe_refresh
-    implementation deps.support.design
+    implementation Support.annotations
+    implementation Support.appCompat
+    implementation Support.recyclerview
+    implementation Support.swipeRefresh
+    implementation Support.design
 
-    implementation deps.kotlin.stdlib
+    implementation Kotlin.stdlib
 
-    implementation deps.constraint_layout
-    implementation deps.support.fragment_runtime_ktx
+    implementation Support.constraintLayout
+    implementation Support.fragmentRuntimeKtx
     //navigation
-    implementation deps.navigation.fragment_ktx
-    implementation deps.navigation.ui_ktx
+    implementation Navigation.fragmentKtx
+    implementation Navigation.uiKtx
 
 
 
 
     //paging
-    implementation deps.paging.paging_ktx
-    implementation deps.paging.paging_rxjava_ktx
+    implementation Paging.pagingKtx
+    implementation Paging.pagingRxjavaKtx
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // databinding
-    kapt deps.databinding.complier
+    kapt DataBinding.compiler
 
     // rxjava
-    implementation deps.rxjava2
-    implementation deps.rx_android
+    implementation RxJava.rxjava2
+    implementation RxJava.rxAndroid
+    implementation RxJava.rxjava2debug
 
     // viewmodel
-    implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.extensions
-    implementation deps.lifecycle.java8
+    implementation Lifecycle.runtime
+    implementation Lifecycle.extensions
+    implementation Lifecycle.java8
 //    implementation deps.lifecycle.viewmodel_ktx
-    kapt deps.lifecycle.compiler
+    kapt Lifecycle.compiler
 
     // room
 //    implementation deps.room.runtime
@@ -84,23 +86,23 @@ dependencies {
 //    kapt deps.room.compiler
 
     // retrofit
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.retrofit.scalars
-    implementation deps.retrofit.rxjava2
-    implementation deps.okhttp_logging_interceptor
-    implementation deps.rxjava2debug
+    implementation Retrofit.runtime
+    implementation Retrofit.gson
+    implementation Retrofit.scalars
+    implementation Retrofit.rxjava2
+    implementation OkHttp.loggingInterceptor
+    
 
     // glide
-    implementation deps.glide.runtime
-    kapt deps.glide.compiler
+    implementation Glide.runtime
+    kapt Glide.compiler
 
     //dagger
-    implementation deps.dagger.runtime
-    kapt deps.dagger.compiler
-    implementation deps.dagger.android
-    implementation deps.dagger.android_support
-    kapt deps.dagger.android_support_compiler
+    implementation Dagger.runtime
+    kapt Dagger.compiler
+    implementation Dagger.android
+    implementation Dagger.androidSupport
+    kapt Dagger.androidSupportCompiler
 
     //banner
     implementation "com.youth.banner:banner:2.0.12"
