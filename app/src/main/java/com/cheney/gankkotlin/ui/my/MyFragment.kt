@@ -1,24 +1,11 @@
 package com.cheney.gankkotlin.ui.my
 
-import android.Manifest
 import android.content.Context
-import android.content.Intent
-import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
-import android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +18,6 @@ import com.cheney.gankkotlin.util.TakePhotoObserver
 import com.cheney.gankkotlin.util.TakePhotoObserver.Companion.REQUEST_KEY
 import com.cheney.gankkotlin.util.autoCleared
 import dagger.android.support.DaggerFragment
-import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -80,11 +66,8 @@ class MyFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-        binding.eventHandler = EventHandlers(takePhotoObserver,binding)
-        binding.versionName="1.0.0"
+        binding = FragmentMyBinding.inflate(inflater, container, false)
+        binding.versionTv.text = "1.0.0"
         return binding.root
     }
 
@@ -92,22 +75,11 @@ class MyFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarLayout.toolbar.title = getString(R.string.title_my)
 
-
-    }
-
-
-    class EventHandlers(var takePhotoObserver: TakePhotoObserver,var binding: FragmentMyBinding) {
-
-        fun gotoLogin(view: View) {
+        binding.loginLayout.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_navigation_my_to_loginFragment)
         }
 
-        fun avatarClick(view: View) {
-            takePhotoObserver.launch()
-        }
-
-
-
+        binding.avatarIv.setOnClickListener { takePhotoObserver.launch() }
     }
 
 

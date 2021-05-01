@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -31,9 +30,7 @@ class GirlFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_girl, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+        binding = FragmentGirlBinding.inflate(inflater,  container, false)
         viewModel.query()
         return binding.root
     }
@@ -42,6 +39,13 @@ class GirlFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbarLayout.toolbar.title = getString(R.string.title_girl)
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = it
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
 
         adapter = GirlAdapter(GankDiffUtilItemCallback())
         binding.recyclerView.adapter = adapter

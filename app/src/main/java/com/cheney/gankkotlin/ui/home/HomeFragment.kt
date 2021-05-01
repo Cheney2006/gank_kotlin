@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheney.gankkotlin.R
@@ -41,34 +40,34 @@ class HomeFragment : DaggerFragment() {
 
     private var homeAdapter by autoCleared<HomeAdapter>()
 
-//    private lateinit var bannerAdapter: GankBannerAdapter;
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentHomeBinding>(
-            inflater,
-            R.layout.fragment_home,
-            container,
-            false
-        )
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = homeViewModel
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         homeViewModel.query()
 
         setToolbar()
+
+        homeViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = it
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            homeViewModel.query()
+        }
 
         setBanner()
 
         setAdapter()
     }
+
 
     private fun setAdapter() {
 
@@ -131,7 +130,7 @@ class HomeFragment : DaggerFragment() {
 //            }
 //        })
         val adapter = GankBannerAdapter(gankBanners) {
-            TODO("点击跳转")
+            findNavController().navigate(HomeFragmentDirections.actionGlobalWebViewFragment(it.title,it.url))
         }
 
         binding.banner.addBannerLifecycleObserver(viewLifecycleOwner).adapter = adapter

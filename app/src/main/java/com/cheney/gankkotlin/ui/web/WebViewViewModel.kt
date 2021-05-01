@@ -6,5 +6,4 @@ import javax.inject.Inject
 
 class WebViewViewModel @Inject constructor():ViewModel() {
 
-    val progress= MutableLiveData<Int>()
 }

@@ -4,23 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.cheney.gankkotlin.R
-import com.cheney.gankkotlin.base.di.ViewModelFactory
 import com.cheney.gankkotlin.bean.CategoryType
 import com.cheney.gankkotlin.databinding.FragmentCategoryBinding
-import com.cheney.gankkotlin.ui.home.HomeViewModel
 import com.cheney.gankkotlin.util.autoCleared
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
-import java.sql.Types
 import javax.inject.Inject
 
 class CategoryFragment : DaggerFragment() {
@@ -40,10 +32,8 @@ class CategoryFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
+        binding = FragmentCategoryBinding.inflate(inflater, container, false);
 
-        binding.lifecycleOwner = viewLifecycleOwner;
-        binding.viewModel = categoryViewModel
         return binding.root
     }
 

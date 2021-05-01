@@ -1,15 +1,12 @@
 package com.cheney.gankkotlin.ui.web
 
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,14 +31,14 @@ class WebViewFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_webview, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        binding = FragmentWebviewBinding.inflate(inflater, container, false)
         binding.webView.webViewClient = WebViewClient()
         binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
-                viewModel.progress.value = newProgress
+                binding.progressBar.progress = newProgress
+                binding.progressBar.visibility = if (newProgress < 100) View.VISIBLE else View.GONE
+
             }
         }
         binding.webView.settings.javaScriptEnabled = true

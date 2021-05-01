@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cheney.gankkotlin.R
-import com.cheney.gankkotlin.base.di.ViewModelFactory
 import com.cheney.gankkotlin.databinding.ActivityMainBinding
 import com.cheney.gankkotlin.dialog.ProgressFragment
 import com.cheney.gankkotlin.util.StatusBarUtil
@@ -28,8 +25,8 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StatusBarUtil.setStatusBar(this)
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+       val binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
 

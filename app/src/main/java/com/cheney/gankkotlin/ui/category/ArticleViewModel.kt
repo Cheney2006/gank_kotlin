@@ -1,6 +1,7 @@
 package com.cheney.gankkotlin.ui.category
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.Config
@@ -17,8 +18,8 @@ class ArticleViewModel @Inject constructor(private val gankRepository: GankRepos
 
     private val compositeDisposable = CompositeDisposable()
 
-//        private var _isLoadingLiveData: LiveData<Boolean> = MutableLiveData<Boolean>()
-    private lateinit var _isLoadingLiveData: LiveData<Boolean>
+        private var _isLoadingLiveData: LiveData<Boolean> = MutableLiveData<Boolean>()
+//    private lateinit var _isLoadingLiveData: LiveData<Boolean>
 
     private lateinit var _errorLiveData: LiveData<Throwable>
 

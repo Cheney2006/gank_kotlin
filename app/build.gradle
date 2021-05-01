@@ -28,7 +28,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
+    viewBinding {
         enabled = true
     }
     compileOptions {
@@ -64,9 +64,6 @@ dependencies {
     implementation Paging.pagingKtx
     implementation Paging.pagingRxjavaKtx
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
-    // databinding
-    kapt DataBinding.compiler
 
     // rxjava
     implementation RxJava.rxjava2

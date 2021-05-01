@@ -2,8 +2,8 @@ package com.cheney.gankkotlin.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.bean.GankBanner
 import com.cheney.gankkotlin.databinding.ItemBannerBinding
@@ -17,13 +17,13 @@ class GankBannerAdapter(
 
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
-        val binding = DataBindingUtil.inflate<ItemBannerBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.item_banner,
-            parent,
-            false
+        return BannerViewHolder(
+            ItemBannerBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        return BannerViewHolder(binding)
     }
 
     override fun onBindView(
@@ -32,13 +32,16 @@ class GankBannerAdapter(
         position: Int,
         size: Int
     ) {
-        holder.binding.gankBanner = data
+        holder.binding.titleTv.text = data.title
+        Glide.with(holder.binding.coverIv.context).load(data.image)
+            .placeholder(R.drawable.image_placeholder)
+            .into(holder.binding.coverIv)
         holder.binding.root.setOnClickListener {
             onItemClickListener.invoke(data)
         }
-        holder.binding.executePendingBindings()
     }
 
-    class BannerViewHolder(val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root)
+    class BannerViewHolder(val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    }
 }

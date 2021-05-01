@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.cheney.gankkotlin.R
 import com.cheney.gankkotlin.bean.CategoryType
 import com.cheney.gankkotlin.databinding.FragmentAritcleBinding
 import com.cheney.gankkotlin.ui.home.GankDiffUtilItemCallback
@@ -43,9 +42,7 @@ class ArticleFragment(private val categoryType: CategoryType) : DaggerFragment()
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_aritcle, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+            FragmentAritcleBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -54,6 +51,12 @@ class ArticleFragment(private val categoryType: CategoryType) : DaggerFragment()
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.queryByCategoryType(categoryType)
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = it
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
 
         setAdapter()
 

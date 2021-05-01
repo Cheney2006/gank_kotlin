@@ -1,6 +1,7 @@
 package com.cheney.gankkotlin.ui.girl
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.Config
@@ -21,9 +22,9 @@ class GirlViewModel @Inject constructor(
         enablePlaceholders = false,
         initialLoadSizeHint = 10
     )
-    private val compositeDisposabl = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
-    private lateinit var _isLoading: LiveData<Boolean>
+    private var _isLoading: LiveData<Boolean> = MutableLiveData<Boolean>()
 
     val isLoading get() = _isLoading
 
@@ -47,7 +48,7 @@ class GirlViewModel @Inject constructor(
     }
 
     init {
-        _factory = GirlDataSourceFactory(gankRepository, compositeDisposabl)
+        _factory = GirlDataSourceFactory(gankRepository, compositeDisposable)
     }
 
     fun refresh() {
@@ -56,6 +57,6 @@ class GirlViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        compositeDisposabl.clear()
+        compositeDisposable.clear()
     }
 }
